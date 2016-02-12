@@ -859,10 +859,24 @@ def sendEmail(site, announce, filter, filename):
     import smtplib
     from email.mime.text import MIMEText
 
-    #create the message
-#    msg = 'pyWA has detected a new download.\n\nSite: %(site)s\nCaptured Announce: %(announce)s\nMatched Filter: %(filter)s\nSaved Torrent: %(filename)s'%{'filename':filename, 'filter':filter, 'site':site, 'announce':announce}
-    msg = MIMEText('pyWA has detected a new download.\n\nSite: %(site)s\nCaptured Announce: %(announce)s\nMatched Filter: %(filter)s\nSaved Torrent: %(filename)s'%{'filename':filename, 'filter':filter, 'site':site, 'announce':announce})
-    gmail = SETUP.get('notification','gmail')
+    # Create the message
+    msg = MIMEText(
+        '\n'.join([
+            "pyWA has detected a new download.",
+            "",
+            "Site: %(site)s",
+            "Captured Announce: %(announce)s",
+            "Matched Filter: %(filter)s",
+            "Saved Torrent: %(filename)s",
+        ]) % {
+            'filename': filename,
+            'filter': filter,
+            'site': site,
+            'announce': announce,
+        }
+    )
+
+    gmail = SETUP.get('notification', 'gmail')
     msg['Subject'] = 'pyWA: New %s download!'%site
 
     # Send the message via our own SMTP server
