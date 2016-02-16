@@ -4,28 +4,39 @@
 from __future__ import with_statement
 from __future__ import division
 
-
-print('Starting main program.')
-print('pyWHATauto: johnnyfive + blubba. WHATauto original creator: mlapaglia.')
-
-import sys
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from SocketServer import ThreadingMixIn
+from datetime import datetime, timedelta
+from threading import Thread
+from torrentparser import torrentparser
+import ConfigParser
+import cookielib
+import db
 import globals as G
 import irclib as irclib
-#import handlePubMSG as handlePubMSG
-from torrentparser import torrentparser
+import math
+import os
+import random
+import re
+import socket
+import sqlite3
+import sys
+import thread
+import threading
+import time
+import traceback
+import urllib
+import urllib2
+
+
 
 VERSION = 'v1.74'
 
-print('You are running pyWHATauto version %s\n'%VERSION)
 
-#from time import strftime, strptime
-from datetime import datetime, timedelta
+print('Starting main program.')
+print('pyWHATauto: johnnyfive + blubba. WHATauto original creator: mlapaglia.')
+print('You are running pyWHATauto version %s\n' % VERSION)
 
-from threading import Thread
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-from SocketServer import ThreadingMixIn
-
-import db, time, os, re, ConfigParser, thread, urllib, urllib2, random, cookielib, socket, math, traceback, sqlite3, threading#, WHATparse as WP, #htmllib,
 
 def main():
     global irc, log, log2, lastFSCheck, last, SETUP
